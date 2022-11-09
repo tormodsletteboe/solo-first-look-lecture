@@ -8,6 +8,9 @@ router.get('/',rejectUnauthenticated, (req, res) => {
         console.log('/pet GET route');
         console.log('is authenticated?', req.isAuthenticated());
         console.log('user', req.user);
+
+        // TODO: use req.user.accesslevel here to control querytext and queryparams
+
         let queryText = `SELECT * FROM "pets" WHERE "user_id"=$1`;
         pool.query(queryText, [req.user.id]).then((result) => {
             res.send(result.rows);
